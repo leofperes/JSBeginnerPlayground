@@ -1,6 +1,6 @@
 # JSBeginnerPlayground
 
-<h2>Sobre</h2>
+<h2>Sobre projeto Sons</h2>
 
 O intuito deste repositório é aprender sobre o básico do Javascript, conceitos que serão utilizados em diversos algoritmos. Segue os conceitos utilizados:
 
@@ -16,3 +16,11 @@ Os parâmetros são os nomes que damos a valores que uma função pode receber e
 <h4>Listas/Arrays</h4>
 
 Um array é uma estrutura de dados, uma coleção ordenada de elementos, onde cada tem um índice associado. Os índices começam em 0.
+
+----
+
+<h2>Sobre projeto Fokus</h2>
+
+<h4>DOM</h4>
+
+ DOM é a sigla para Document Object Model (Modelo de Objeto de Documento) e é uma forma padronizada de representar e interagir com objetos em documentos HTML e XML. Quando um evento ocorre, você tem a capacidade de reagir a ele e executar algumas ações, como exibir uma mensagem para o usuário, alterar ou adicionar algum elemento na página.
