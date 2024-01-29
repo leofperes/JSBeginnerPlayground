@@ -5,8 +5,11 @@ let title = document.querySelector('.app__title')
 let inputMusic = document.querySelector('#alternar-musica')
 let music = new Audio('./sons/luna-rise-part-one.mp3')
 let startPauseButton = document.getElementById('start-pause')
-let tempoDecorridoEmSegundos = 5;
+let tempoDecorridoEmSegundos = 1500
 let intervaloId = null
+let initPauseBtn = document.querySelector('#start-pause span')
+let imgInitPause = document.querySelector('.app__card-primary-butto-icon')
+let timerScreen = document.querySelector('#timer')
 let modoImgBanner = {
   foco: "./imagens/foco.png",
   "descanso-curto": "./imagens/descanso-curto.png",
@@ -41,7 +44,6 @@ function handleButtons(clickedButton){
       })
 
       let contexto = clickedButton.getAttribute('data-contexto');
-      console.log(contexto)
       let bannerContexto = modoImgBanner[contexto];
       
       if (teste.hasOwnProperty(contexto)) {
@@ -53,18 +55,22 @@ function handleButtons(clickedButton){
         case "foco":
           title.innerHTML = `Otimize sua produtividade,<br>
           <strong class="app__title-strong">mergulhe no que importa.</strong>`
+          tempoDecorridoEmSegundos = 1500
           break;
         case "descanso-curto":
           title.innerHTML = `Que tal dar uma respirada?<br>
           <strong class="app__title-strong">Faça uma pausa curta!</strong>`
+          tempoDecorridoEmSegundos = 300
           break;
         case "descanso-longo":
           title.innerHTML = `Hora de voltar a superficie.<br>
           <strong class="app__title-strong">Faça uma pausa longa.</strong>`
+          tempoDecorridoEmSegundos = 900
           break
         default:
           break;
       }
+      mostrarTempo()
     }
 }
 
@@ -75,6 +81,7 @@ const contagemRegressiva = () => {
     return
   }
   tempoDecorridoEmSegundos = tempoDecorridoEmSegundos - 1
+  mostrarTempo()
 }
 
 startPauseButton.addEventListener('click', iniciarPausar)
@@ -85,9 +92,21 @@ function iniciarPausar() {
     return
   }
   intervaloId = setInterval(contagemRegressiva, 1000)
+  initPauseBtn.textContent = 'Pausar'
+  imgInitPause.setAttribute('src', './imagens/pause.png')
 }
 
 function zerar(){
   clearInterval(intervaloId)
+  initPauseBtn.textContent = 'Começar'
+  imgInitPause.setAttribute('src', './imagens/play_arrow.png')
   intervaloId = null;
 }
+
+function mostrarTempo(){
+  let tempo = new Date(tempoDecorridoEmSegundos * 1000)
+  let tempoFormatado = tempo.toLocaleTimeString('pt-br', {minute: '2-digit', second: '2-digit'})
+  timerScreen.innerHTML = `${tempoFormatado}`
+}
+
+mostrarTempo()
