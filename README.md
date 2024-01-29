@@ -30,11 +30,30 @@ DOM é a sigla para Document Object Model (Modelo de Objeto de Documento) e é u
 <h4>innerHTML x textContent</h4>
 
 innerHtml -  É uma propriedade em JavaScript que permite acessar e modificar o conteúdo HTML de um elemento. Ele retorna ou define o conteúdo HTML dentro do elemento, incluindo tags HTML, o que significa que você pode inserir HTML formatado. É importante garantir que o conteúdo seja seguro para evitar injeção de código malicioso.
-
+```
+let elemento = document.getElementById('exemplo');
+elemento.innerHTML = '<strong>Texto em negrito</strong>';
+```
 textContent - é uma propriedade em JavaScript que permite acessar e modificar apenas o texto interno de um elemento, sem interpretar HTML.
 Ele retorna ou define o conteúdo de texto do elemento, sem incluir as tags HTML.
+```
+let elemento = document.getElementById('exemplo');
+elemento.textContent = 'Texto simples, sem tags HTML';
+```
 
 <h4>new Audio (Objeto de aúdio)</h4>
 
 Essa instância representa um elemento de áudio que pode ser incorporado em uma página web. A principal finalidade é permitir a reprodução de arquivos de áudio no navegador
 Exemplos de Uso:
+```
+// Criar uma instância de Audio com um arquivo MP3
+let meuAudio = new Audio('caminho/do/arquivo/audio.mp3');
+
+// Reproduzir o áudio
+meuAudio.play();
+
+// Pausar o áudio após 5 segundos
+setTimeout(() => {
+    meuAudio.pause();
+}, 5000);
+```
