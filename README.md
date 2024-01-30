@@ -57,3 +57,11 @@ setTimeout(() => {
     meuAudio.pause();
 }, 5000);
 ```
+
+<h4>localStorage vs sessionStorage vs cookies</h4>
+
+<strong>localStorage</strong> -> Guarda informações sem data de validade, fica lá até o usuário limpar os dados de navegação. Cada site tem seu próprio localStorage. Nunca armazene dados pessoais/sensiveis ou chaves de autenticação
+
+<strong>sessionStorage</strong> -> Armazena informações durante o período que está utilizando, a partir do momento que abre a aba do navegador e termina quando fecha. Mas pode ser que cada site tenha seu próprio tempo de sessão
+
+<strong>cookies</strong> -> Navegadores da Web rastreiem, personalizem e salvem informações sobre a sessão de cada usuário. Sites usam cookies HTTP para agilizar suas experiências na Web. Sem cookies, você teria que fazer login sempre que saísse de um site ou reconstruir seu carrinho de compras caso fechasse a página acidentalmente
