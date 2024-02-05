@@ -2,10 +2,14 @@ const btnAdicionarTarefa = document.querySelector('.app__button--add-task')
 const formularioTarefa = document.querySelector('.app__form-add-task')
 const textArea = document.querySelector('.app__form-textarea')
 const ulTarefas = document.querySelector('.app__section-task-list')
+const btnCancelar = document.querySelector('.app__form-footer__button--cancel')
+const descricaoTarefaSelecionada = document.querySelector('.app__section-active-task-description')
+let tarefaSelecionada = null
 
 const listaTarefas = JSON.parse(localStorage.getItem('listaTarefas')) || []
 
 function atualizarTarefa() {
+  //O localStorage so armazena strings, é preciso usar o JSON.stringify para converter para string
   localStorage.setItem('listaTarefas', JSON.stringify(listaTarefas))
 }
 
@@ -30,7 +34,7 @@ function criarElementosHtml(tarefa){
 
   button.onclick = () => {
     const novaTarefa = prompt('Qual tarefa deseja colocar no lugar da selecionada?')
-    if(novaTarefa !== ""){
+    if(novaTarefa){
       tarefa.descricao = novaTarefa;
       p.textContent = novaTarefa
       atualizarTarefa()
@@ -47,12 +51,28 @@ function criarElementosHtml(tarefa){
   li.append(p)
   li.append(button)
 
+  li.onclick = () => {
+    document.querySelectorAll('.app__section-task-list-item-active').forEach(elemento => {
+      elemento.classList.remove('app__section-task-list-item-active')
+    })
+    if(tarefaSelecionada == tarefa){
+      descricaoTarefaSelecionada.textContent = ''
+      tarefaSelecionada = null
+      return
+    }
+    tarefaSelecionada = tarefa
+    descricaoTarefaSelecionada.textContent = tarefa.descricao
+    li.classList.add('app__section-task-list-item-active') 
+  }
+
   return li
 }
 
 btnAdicionarTarefa.addEventListener('click', () => {
   formularioTarefa.classList.toggle('hidden')
 })
+
+btnCancelar.addEventListener('click', limparFormulario)
 
 formularioTarefa.addEventListener('submit', (evento) => {
   evento.preventDefault()
@@ -61,12 +81,11 @@ formularioTarefa.addEventListener('submit', (evento) => {
   }
 
   listaTarefas.push(tarefa)
-  //O localStorage so armazena strings, é preciso usar o JSON.stringify para converter para string
+  
   const elementoTarefa = criarElementosHtml(tarefa)
   ulTarefas.append(elementoTarefa)
   atualizarTarefa()
-  textArea.value = ''
-  formularioTarefa.classList.add('hidden')
+  limparFormulario()
 })
 
 
@@ -74,3 +93,8 @@ listaTarefas.forEach(tarefa => {
   const elementoTarefa = criarElementosHtml(tarefa)
   ulTarefas.append(elementoTarefa)
 });
+
+function limparFormulario(){
+  textArea.value = ''
+  formularioTarefa.classList.add('hidden')
+}
