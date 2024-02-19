@@ -55,7 +55,7 @@ function handleButtons(clickedButton){
         case "foco":
           title.innerHTML = `Otimize sua produtividade,<br>
           <strong class="app__title-strong">mergulhe no que importa.</strong>`
-          tempoDecorridoEmSegundos = 1500
+          tempoDecorridoEmSegundos = 10
           break;
         case "descanso-curto":
           title.innerHTML = `Que tal dar uma respirada?<br>
@@ -76,6 +76,11 @@ function handleButtons(clickedButton){
 
 const contagemRegressiva = () => {
   if(tempoDecorridoEmSegundos <= 0){
+    let focoFinalizado = html.getAttribute('data-contexto') == 'foco'
+    if(focoFinalizado){
+      let event = new CustomEvent('FocoFinalizado')
+      document.dispatchEvent(event)
+    }
     zerar()
     alert('Tempo finalizado!')
     return

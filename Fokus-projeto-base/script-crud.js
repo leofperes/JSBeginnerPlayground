@@ -5,6 +5,7 @@ const ulTarefas = document.querySelector('.app__section-task-list')
 const btnCancelar = document.querySelector('.app__form-footer__button--cancel')
 const descricaoTarefaSelecionada = document.querySelector('.app__section-active-task-description')
 let tarefaSelecionada = null
+let liTarefaSelecionada = null
 
 const listaTarefas = JSON.parse(localStorage.getItem('listaTarefas')) || []
 
@@ -57,10 +58,12 @@ function criarElementosHtml(tarefa){
     })
     if(tarefaSelecionada == tarefa){
       descricaoTarefaSelecionada.textContent = ''
+      liTarefaSelecionada = null
       tarefaSelecionada = null
       return
     }
     tarefaSelecionada = tarefa
+    liTarefaSelecionada = li
     descricaoTarefaSelecionada.textContent = tarefa.descricao
     li.classList.add('app__section-task-list-item-active') 
   }
@@ -98,3 +101,11 @@ function limparFormulario(){
   textArea.value = ''
   formularioTarefa.classList.add('hidden')
 }
+
+document.addEventListener('FocoFinalizado', () => {
+  if(tarefaSelecionada && liTarefaSelecionada){
+    liTarefaSelecionada.classList.remove('app__section-task-list-item-active')
+    liTarefaSelecionada.classList.add('app__section-task-list-item-complete')
+    liTarefaSelecionada.querySelector('button').setAttribute('disabled', 'disabled')
+  }
+})
